@@ -33,6 +33,6 @@ apropriado. É boa idéia verificar a existência de estados repetidos?
       
 ### Algoritmo:
 
-Algoritmo busca em largura utilizado para a implementação da resolução desse problema.
+      Algoritmo busca em largura utilizado para a implementação em C da resolução desse problema.
 ---
       
