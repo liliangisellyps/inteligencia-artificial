@@ -30,6 +30,9 @@ apropriado. É boa idéia verificar a existência de estados repetidos?
 ### Para executar:
       > gcc queue.c state.c main.c -o main
       > ./main > main.txt
+      
+### Algoritmo:
 
+Algoritmo busca em largura utilizado para a implementação da resolução desse problema.
 ---
       
