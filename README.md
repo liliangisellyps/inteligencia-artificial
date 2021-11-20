@@ -11,28 +11,28 @@ partir de um ponto de vista analítico (Amarel, 1968).
 Implemente e resolva o problema de forma ótima, utilizando um algoritmo de busca
 apropriado. É boa idéia verificar a existência de estados repetidos?
 
+ - [Resolução](https://github.com/liliangisellyps/inteligencia-artificial/tree/master/missionarios)
+
 ---
 
-### Saída obtida:
+## Problema do metrô de Paris
 
-      Execute a travessia de 0 missionario e 2 canibais para a borda direita do rio.
-      Execute a travessia de 0 missionario e 1 canibal para a borda esquerda do rio.
-      Execute a travessia de 0 missionario e 2 canibais para a borda direita do rio.
-      Execute a travessia de 0 missionario e 1 canibal para a borda esquerda do rio.
-      Execute a travessia de 2 missionario(s) e 0 canibal para a borda direita do rio.
-      Execute a travessia de 1 missionario e 1 canibal para a borda esquerda do rio.
-      Execute a travessia de 2 missionario(s) e 0 canibal para a borda direita do rio.
-      Execute a travessia de 0 missionario e 1 canibal para a borda esquerda do rio.
-      Execute a travessia de 0 missionario e 2 canibais para a borda direita do rio.
-      Execute a travessia de 1 missionario e 0 canibal para a borda esquerda do rio.
-      Execute a travessia de 1 missionario e 1 canibal para a borda direita do rio.
+Suponha que queremos construir um sistema para auxiliar um usuário do metrô de Paris a saber o trajeto mais rápido entre a estação onde ele se encontra e a estação de destino. O usuário tem um painel com o mapa, podendo selecionar a sua estação
+de destino. O sistema então acende as luzes sobre o mapa mostrando o melhor trajeto a seguir (em termos de quais estações ele vai atravessar, e quais as conexões mais rápidas a fazer – e for o caso).
 
-### Para executar:
-      > gcc queue.c state.c main.c -o main
-      > ./main > main.txt
-      
-### Algoritmo:
+Considere que:
+- a distância em linha reta entre duas estações quaisquer é dada em uma tabela.
+Para facilitar a vida, considere apenas 4 linhas do metrô.
+- a velocidade média de um trem é de 30km/h;
+- tempo gasto para trocar de linha dentro de mesma estação (fazer baldeação) é de
+4 minutos.
 
-      Algoritmo busca em largura utilizado para a implementação em C da resolução desse problema.
+Formule e implemente este problema em termos de estado inicial, estado final, operadores e função de avaliação para Busca heurística com A*.
+
+<img height="400em" src=" https://images-ext-2.discordapp.net/external/d_nAC0yVTFo6SQKhe0JUHXbiNL08B33XlU2l1vq1llk/%3Fraw%3Dtrue/https/github.com/vhsabino/astar-paris-subway-simplified/blob/main/map/paris-subway-map-simplified.png?width=499&height=498"/>
+
+
+- [Resolução](https://github.com/liliangisellyps/inteligencia-artificial/tree/master/paris)
+[](https://images-ext-2.discordapp.net/external/d_nAC0yVTFo6SQKhe0JUHXbiNL08B33XlU2l1vq1llk/%3Fraw%3Dtrue/https/github.com/vhsabino/astar-paris-subway-simplified/blob/main/map/paris-subway-map-simplified.png?width=499&height=498)
 ---
-      
+
