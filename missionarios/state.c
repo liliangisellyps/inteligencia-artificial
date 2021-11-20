@@ -14,7 +14,7 @@ State* createState(int missionaryL, int cannibalL, int missionaryR, int cannibal
     return state;
 }
 State* createNewStates(Queue* fronteira, Data* node){ 
-    State* currentState;
+    State* currentState = (State*) malloc(sizeof(State));
     *currentState = node->state;
     
     if(currentState->side == 'L'){
@@ -59,6 +59,7 @@ void printState(State state){
 }
 
 void printPath(Data* node){
+    // Data* aux = (Data*) malloc(sizeof(Data));
     Data* aux = node;
     aux->next = NULL;
     // printState(aux->state);
