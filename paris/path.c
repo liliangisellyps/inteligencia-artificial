@@ -17,7 +17,7 @@ void createNewPath(Grafo *gr, Queue *fronteira, Data *node, int origem, int dest
         if(gr->linhas[i][atual] != '-'){
             dbg printf("enqueue: %d %c %.0f i: %d j: %d, ", atual, gr->linhas[i][atual], gr->pesos[i][j], i, j);
             enqueue(gr, origem, atual, destino, fronteira, node);
-            printQueue(fronteira, destino);
+            dbg printQueue(fronteira, destino);
             // gr->pesos[i][j] -> custo da origem até o nó atual
         }
     }
@@ -26,8 +26,10 @@ void createNewPath(Grafo *gr, Queue *fronteira, Data *node, int origem, int dest
 
 int terminalPath(int currentNode, int destino){
     int currentStation = currentNode;
-    if(currentStation == destino)
+    if(currentStation == destino){
+        printf("Encontrou a rota\n");
         return 1;
+    }
     else
         return 0;
 }

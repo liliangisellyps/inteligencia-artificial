@@ -35,34 +35,25 @@ void main (){
     enqueue(gr, orig, orig, dest, fronteira, NULL);
     Data* currentNode = dequeue(fronteira);
 
-    if(terminalPath(currentNode->station, dest)) printf("eh estado final\n");
-    else {
-        printf("%d nn eh estado final\n", currentNode->station);
-        createNewPath(gr, fronteira, currentNode, orig, dest);
-        currentNode = dequeue(fronteira);
-    }
-    if(terminalPath(currentNode->station, dest)) printf("eh estado final\n");
-    else {
-        printf("%d nn eh estado final\n\n", currentNode->station);
+    // if(terminalPath(currentNode->station, dest)) printf("eh estado final\n");
+    // else {
+    //     printf("%d nn eh estado final\n", currentNode->station);
+    //     createNewPath(gr, fronteira, currentNode, orig, dest);
+    //     currentNode = dequeue(fronteira);
+    // }
+    // if(terminalPath(currentNode->station, dest)) printf("eh estado final\n");
+    // else {
+    //     printf("%d nn eh estado final\n\n", currentNode->station);
+    //     createNewPath(gr, fronteira, currentNode, currentNode->station, dest);
+    //     currentNode = dequeue(fronteira);
+    // }
+    // printQueue(fronteira, dest);
+
+    // if(terminalPath(currentNode->station, dest)) printf("eh estado final\n");
+
+
+    while(!terminalPath(currentNode->station, dest)){
         createNewPath(gr, fronteira, currentNode, currentNode->station, dest);
         currentNode = dequeue(fronteira);
     }
-    if(terminalPath(currentNode->station, dest)) printf("eh estado final\n");
-
-    // printQueue(fronteira, dest);
-
-    // while(!terminalPath(currentNode->station, dest)){
-    //     createNewPath(gr, fronteira, currentNode, orig, dest);
-    //     currentNode = dequeue(fronteira);
-    //     //what happens hereeeeee?
-    // }
-    printf("cabou");
-
-
-    // while(!terminalState(currentState)){
-    //     createNewStates(fronteira, node); 
-    //     node = dequeue(fronteira); 
-    //     *currentState = node->state;
-    // }
-    // astar(gr, orig, dest);
 }

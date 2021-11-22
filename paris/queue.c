@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "grafo.h"
 #include "queue.h"
-#define dbg if(1)
+#define dbg if(0)
 
 typedef struct node Data;
 typedef struct node* Queue;
@@ -34,7 +34,7 @@ int enqueue(Grafo *gr, int origem, int atual, int destino, Queue* fronteira, Dat
     }else{
         Data *aux = *fronteira;
         if(node->totalCost < aux->totalCost){
-            printf("hmhm: %d %d\n", node->totalCost, aux->totalCost);
+            dbg printf("hmhm: %d %d\n", node->totalCost, aux->totalCost);
             node->next = *fronteira;
             *fronteira = node; 
             return 1;

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "grafo.h"
 #include "queue.h"
-#define dbg if(1)
+#define dbg if(0)
 #define debg if(0)
 
 typedef struct grafo Grafo;
