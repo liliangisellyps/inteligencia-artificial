@@ -22,7 +22,7 @@ void main (){
         }   
     }
 
-    imprimeGrafo(gr);
+    // imprimeGrafo(gr);
     // imprimeDistancias(gr);
     printf("Digite sua estacao de origem: ");
     scanf("%d", &orig);
@@ -35,15 +35,28 @@ void main (){
     enqueue(gr, orig, orig, dest, fronteira, NULL);
     Data* currentNode = dequeue(fronteira);
 
+    if(terminalPath(currentNode->station, dest)) printf("eh estado final\n");
+    else {
+        printf("%d nn eh estado final\n", currentNode->station);
+        createNewPath(gr, fronteira, currentNode, orig, dest);
+        currentNode = dequeue(fronteira);
+    }
+    if(terminalPath(currentNode->station, dest)) printf("eh estado final\n");
+    else {
+        printf("%d nn eh estado final\n\n", currentNode->station);
+        createNewPath(gr, fronteira, currentNode, currentNode->station, dest);
+        currentNode = dequeue(fronteira);
+    }
+    if(terminalPath(currentNode->station, dest)) printf("eh estado final\n");
+
+    // printQueue(fronteira, dest);
+
     // while(!terminalPath(currentNode->station, dest)){
     //     createNewPath(gr, fronteira, currentNode, orig, dest);
     //     currentNode = dequeue(fronteira);
     //     //what happens hereeeeee?
     // }
-    if(terminalPath(currentNode->station, dest)) printf("eh estado final");
-    else printf("nn eh estado final, %d", currentNode->station);{
-        createNewPath(gr, fronteira, currentNode, orig, dest);
-    }
+    printf("cabou");
 
 
     // while(!terminalState(currentState)){

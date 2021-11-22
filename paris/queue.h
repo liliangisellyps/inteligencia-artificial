@@ -5,6 +5,7 @@ typedef struct node* Queue;
 struct node{
     int station;
     int cost;
+    int totalCost;
 
     struct node *next;
     struct node *prev;

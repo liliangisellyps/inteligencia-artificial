@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "grafo.h"
 #include "queue.h"
-#define DEBUG if(1)
+#define dbg if(1)
 
 typedef struct node Data;
 typedef struct node* Queue;
@@ -22,17 +22,26 @@ int enqueue(Grafo *gr, int origem, int atual, int destino, Queue* fronteira, Dat
         return 0;
 
     node->station = atual;
-    node->cost = custoTotal(gr, origem, destino, atual, prevState);
     node->prev = prevState;
     node->next = NULL;
+    node->cost = calculaCusto(gr, origem, atual, prevState);
+    node->totalCost = node->cost + calculaHeuristica(gr, atual, destino);
+    dbg printf("h(n) + g(n): %d\n", node->totalCost);
 
-    Data *aux = *fronteira;
-    if((*fronteira) == NULL || node->cost < aux->cost){ // lista vazia: insere no inicio
+    if((*fronteira) == NULL){ // lista vazia: insere no inicio
         node->next = *fronteira;
         *fronteira = node;    
     }else{
-        while(aux->next != NULL && aux->cost > aux->next->cost) // procurando o ultimo elemento ou onde inserir
+        Data *aux = *fronteira;
+        if(node->totalCost < aux->totalCost){
+            printf("hmhm: %d %d\n", node->totalCost, aux->totalCost);
+            node->next = *fronteira;
+            *fronteira = node; 
+            return 1;
+        }
+        while(aux->next != NULL && node->totalCost > aux->next->totalCost) // procurando o ultimo elemento ou onde inserir
             aux = aux->next;
+        
         node->next = aux->next;
         aux->next = node;
     }

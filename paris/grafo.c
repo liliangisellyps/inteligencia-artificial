@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "grafo.h"
 #include "queue.h"
+#define dbg if(1)
+#define debg if(0)
 
 typedef struct grafo Grafo;
 typedef struct node Data;
@@ -29,10 +31,10 @@ Grafo *criaGrafo(int num_vertices, int grau_max, int eh_ponderado){
             gr->linhas[i] = (char*)malloc(grau_max*sizeof(char));
         // matriz de pesos
         if(gr->eh_ponderado){
-            gr->pesos=(float**)malloc(num_vertices*sizeof(float*));
+            gr->pesos=(float**)calloc(num_vertices, sizeof(float*));
 
             for(i=1; i<num_vertices; i++)
-                gr->pesos[i] = (float*)malloc(grau_max* sizeof(float));
+                gr->pesos[i] = (float*)calloc(grau_max, sizeof(float));
         }
     }
     return gr;
@@ -81,7 +83,7 @@ int insereAresta(Grafo* gr, int orig, int dest, int eh_digrafo, float peso, char
 
     // insere outra aresta se nao for digrafo
     gr->grau[orig]++;
-    if(eh_digrafo == 0){
+    if(eh_digrafo == 0 && orig != dest){
         insereAresta(gr, dest, orig, 1, peso, linha);
     }
     return 1;
@@ -132,7 +134,7 @@ void imprimeGrafo(Grafo *gr){
                     printf("%d, ", gr->arestas[i][j]);
             }
         }
-        printf("\n");
+        dbg printf("\n");
     }
 }
 
@@ -141,6 +143,7 @@ void imprimeDistancias(Grafo *gr){
         return;
 
     int i, j;
+    printf("\n\n");
     for(i=1; i < gr->num_vertices; i++){
         printf("%d: ", i);
         for(j=0; j < gr->grau[i]; j++){
@@ -149,39 +152,47 @@ void imprimeDistancias(Grafo *gr){
             else
                 printf("%d, ", gr->arestas[i][j]);
         }
-        printf("\n");
+        printf("\n\n");
     }
 }
 
-int calculaHeuristica(Grafo *gr, int origem, int destino){
+int calculaHeuristica(Grafo *gr, int atual, int destino){
     int i, pos;
-    for(i=0; i < gr->grau[origem]; i++){
-        if(gr->arestas[origem][i] == destino) pos = i;
+    for(i=0; i < gr->grau[atual]; i++){
+        if(gr->arestas[atual][i] == destino) pos = i;
     }
-    int heuristica = gr->pesos[origem][pos];
-    printf("origem: %d destino: %d heuristica: %d\n", origem, destino, heuristica);
+    int heuristica = gr->pesos[atual][pos];
+    dbg printf("atual: %d destino: %d heuristica: %d\n", atual, destino, heuristica);
     return heuristica;
     //heuristica eh a estimativa de onde eu estou para o nó de destino
 }
 
-void calculaCusto(Grafo *gr, int origem, int atual, Data* prevState){
+int calculaCusto(Grafo *gr, int origem, int atual, Data* prevState){
     if(gr == NULL)
-        return;
-    int i = origem, j;
-    for(j=0; j < gr->grau[i]; j++){
-        if(gr->arestas[i][j] == atual){
-            if(gr->linhas[i][gr->arestas[i][j]] != '-'){
-                printf("custo: %.0f i: %d j: %d, ", gr->pesos[i][j], i, j);
-                // gr->pesos[i][j] -> custo da origem até o nó atual
-            } else {
-                printf("Não tem custo");
+        return 0;
+    if(prevState != NULL){
+        // printf("%d custo acumulado da estacao %d\n", prevState->cost, prevState->station);
+        int i = prevState->station, j, custoTotal = 0, custoAtual;
+        for(j=0; j < gr->grau[i]; j++){
+            if(gr->arestas[i][j] == atual){
+                if(gr->linhas[i][gr->arestas[i][j]] != '-'){
+                    debg printf("custo: %.0f i: %d j: %d, ", gr->pesos[i][j], i, j);
+                    custoAtual = gr->pesos[i][j];
+                    // gr->pesos[i][j] -> custo da origem até o nó atual
+                } else {
+                    debg printf("Não tem custo");
+                }
             }
         }
+        debg printf("\n");
+        custoTotal = prevState->cost + custoAtual;
+        dbg printf("pai: %d, custo pai: %d, custo atual: %d, custo total: %d \n",  prevState->station, prevState->cost, custoAtual, custoTotal);
+        return custoTotal;
+    } else {
+        return 0;
     }
-    printf("\n");
 }
 
 int custoTotal(Grafo *gr, int origem, int destino, int atual,  Data* prevState){
-    calculaHeuristica(gr, atual, destino);
-    // calculaCusto(gr, origem, atual);
+    return calculaHeuristica(gr, atual, destino) + calculaCusto(gr, origem, atual, prevState);;
 }
