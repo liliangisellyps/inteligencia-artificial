@@ -56,4 +56,6 @@ void main (){
         createNewPath(gr, fronteira, currentNode, currentNode->station, dest);
         currentNode = dequeue(fronteira);
     }
+
+    printPath(currentNode);
 }
