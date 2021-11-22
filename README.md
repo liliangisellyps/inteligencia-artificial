@@ -29,9 +29,6 @@ Para facilitar a vida, considere apenas 4 linhas do metrô.
 
 Formule e implemente este problema em termos de estado inicial, estado final, operadores e função de avaliação para Busca heurística com A*.
 
-<img height="400em" src=" https://images-ext-2.discordapp.net/external/d_nAC0yVTFo6SQKhe0JUHXbiNL08B33XlU2l1vq1llk/%3Fraw%3Dtrue/https/github.com/vhsabino/astar-paris-subway-simplified/blob/main/map/paris-subway-map-simplified.png?width=499&height=498"/>
-
-
 - [Resolução](https://github.com/liliangisellyps/inteligencia-artificial/tree/master/paris)
 ---
 
