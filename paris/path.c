@@ -27,7 +27,7 @@ void createNewPath(Grafo *gr, Queue *fronteira, Data *node, int origem, int dest
 int terminalPath(int currentNode, int destino){
     int currentStation = currentNode;
     if(currentStation == destino){
-        printf("Rota encontrada.\n\n");
+        printf("[...] Rota encontrada. \n\nPara viajar pelo trajeto mais rapido, siga as instrucoes a seguir:\n\n");
         return 1;
     }
     else
@@ -43,12 +43,12 @@ void printPath(Data* node){
         aux = aux->prev;
     }
     Data* temp = aux;
-    printf("A partir da linha %d, va para as seguintes estacoes:\n", temp->station);        
+    printf("A partir da estacao %d, va para as seguintes estacoes:\n", temp->station);        
     while(temp->next != NULL){
         temp = temp->next;
-        printf("%d", temp->station);
+        printf("Estacao %d", temp->station);
         if(temp->next != NULL) printf(" -> ");
     }
-    printf("\n\nA estimativa para a sua viagem eh de %d km e %d min, com uma velocidade media de 30km/h.\n", temp->cost, 2*temp->cost);
-    printf("Tenha uma boa viagem!");
+    printf("\n\nA estimativa para a sua viagem eh de %d km e %d min, com o trem a uma velocidade media de 30km/h.\n", temp->cost, 2*temp->cost);
+    printf("\nTenha uma boa viagem!");
 }
