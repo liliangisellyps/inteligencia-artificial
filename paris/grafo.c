@@ -196,3 +196,7 @@ int calculaCusto(Grafo *gr, int origem, int atual, Data* prevState){
 int custoTotal(Grafo *gr, int origem, int destino, int atual,  Data* prevState){
     return calculaHeuristica(gr, atual, destino) + calculaCusto(gr, origem, atual, prevState);;
 }
+
+char getLine(Grafo *gr, int origem, int destino){
+    return gr->linhas[origem][destino];
+}

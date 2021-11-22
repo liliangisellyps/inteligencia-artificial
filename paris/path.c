@@ -27,9 +27,24 @@ void createNewPath(Grafo *gr, Queue *fronteira, Data *node, int origem, int dest
 int terminalPath(int currentNode, int destino){
     int currentStation = currentNode;
     if(currentStation == destino){
-        printf("Encontrou a rota\n");
+        printf("Encontrou a rota.\n");
         return 1;
     }
     else
         return 0;
+}
+
+void printPath(Data* node){
+    // Data* aux = (Data*) malloc(sizeof(Data));
+    Data* aux = node;
+    aux->next = NULL;
+    while(aux->prev != NULL){
+        aux->prev->next = aux;
+        aux = aux->prev;
+    }
+    while(aux->next != NULL){
+        printf("etc");        
+        
+        aux = aux->next;
+    }
 }

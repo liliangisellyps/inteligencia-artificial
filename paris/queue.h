@@ -6,6 +6,7 @@ struct node{
     int station;
     int cost;
     int totalCost;
+    char line;
 
     struct node *next;
     struct node *prev;
@@ -19,3 +20,5 @@ int enqueue(Grafo *gr, int origem, int atual, int destino, Queue* fronteira, Dat
 Data* dequeue(Queue* fronteira);
 
 void printQueue(Queue* fronteira, int destino);
+
+int isDifferentLine(Grafo *gr, int origem, Data* prevState);

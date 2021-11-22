@@ -25,8 +25,18 @@ int enqueue(Grafo *gr, int origem, int atual, int destino, Queue* fronteira, Dat
     node->prev = prevState;
     node->next = NULL;
     node->cost = calculaCusto(gr, origem, atual, prevState);
+
+    if(node->prev != NULL) {
+        node->line = getLine(gr, prevState->station, node->station);
+        if(node->line != prevState->line && prevState->line != '-') node->cost += 2;
+    } else {
+        node->line = '-';
+    }
+
+
     node->totalCost = node->cost + calculaHeuristica(gr, atual, destino);
-    dbg printf("h(n) + g(n): %d\n", node->totalCost);
+    if(prevState != NULL)
+        dbg printf("%d -> %d, g(n): %d, f(n): %d\n", prevState->station, node->station, node->cost, node->totalCost);
 
     if((*fronteira) == NULL){ // lista vazia: insere no inicio
         node->next = *fronteira;
@@ -71,4 +81,18 @@ void printQueue(Queue* fronteira, int destino){
         node = node->next;
     }
     printf("\n\n--------end of queue.---------------\n\n");
+}
+
+int isDifferentLine(Grafo *gr, int atualD, Data* prevState){
+    int i = atualD, j;
+    if(prevState != NULL){
+        for(j=0; j < gr->grau[i]; j++){
+            int atual = gr->arestas[i][j];
+                printf("%d %d %c %c\n", atualD, atual, gr->linhas[i][j], gr->linhas[i][prevState->station]);
+            if(gr->linhas[i][atual] != '-' && gr->linhas[i][prevState->station] != '-' && gr->linhas[i][atual] != gr->linhas[i][prevState->station]){
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
