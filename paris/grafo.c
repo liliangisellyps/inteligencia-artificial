@@ -1,21 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "grafo.h"
+#include "queue.h"
 
-struct grafo{
-    int eh_ponderado;
-    int num_vertices;
-    int grau_max;
-    int** arestas;
-    char** linhas;
-    float** pesos;
-    int* grau;
-};
 typedef struct grafo Grafo;
+typedef struct node Data;
 
 // Grafo *gr 
 
 Grafo *criaGrafo(int num_vertices, int grau_max, int eh_ponderado){
-    Grafo *gr = (Grafo*) malloc(sizeof(struct grafo));
+    Grafo *gr = (Grafo*) malloc(sizeof(Grafo));
     if(gr != NULL){
         int i;
         gr->num_vertices = num_vertices;
@@ -159,12 +153,35 @@ void imprimeDistancias(Grafo *gr){
     }
 }
 
-int calculaDistancia(Grafo *gr, int origem, int destino){
+int calculaHeuristica(Grafo *gr, int origem, int destino){
     int i, pos;
     for(i=0; i < gr->grau[origem]; i++){
         if(gr->arestas[origem][i] == destino) pos = i;
     }
-    int distancia = gr->pesos[origem][pos];
-    printf("origem: %d destino: %d distancia: %d\n", origem, destino, distancia);
-    return distancia;
+    int heuristica = gr->pesos[origem][pos];
+    printf("origem: %d destino: %d heuristica: %d\n", origem, destino, heuristica);
+    return heuristica;
+    //heuristica eh a estimativa de onde eu estou para o nó de destino
+}
+
+void calculaCusto(Grafo *gr, int origem, int atual, Data* prevState){
+    if(gr == NULL)
+        return;
+    int i = origem, j;
+    for(j=0; j < gr->grau[i]; j++){
+        if(gr->arestas[i][j] == atual){
+            if(gr->linhas[i][gr->arestas[i][j]] != '-'){
+                printf("custo: %.0f i: %d j: %d, ", gr->pesos[i][j], i, j);
+                // gr->pesos[i][j] -> custo da origem até o nó atual
+            } else {
+                printf("Não tem custo");
+            }
+        }
+    }
+    printf("\n");
+}
+
+int custoTotal(Grafo *gr, int origem, int destino, int atual,  Data* prevState){
+    calculaHeuristica(gr, atual, destino);
+    // calculaCusto(gr, origem, atual);
 }

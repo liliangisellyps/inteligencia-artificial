@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <locale.h>
 #include "grafo.h"
+#include "queue.h"
+#include "path.h"
 
 void main (){
     setlocale(LC_ALL, "Portuguese");
@@ -22,15 +24,32 @@ void main (){
 
     imprimeGrafo(gr);
     // imprimeDistancias(gr);
-    // printf("Digite sua estacao de origem: ");
-    // scanf("%d", &orig);
-    // printf("Digite sua estacao de destino: ");
-    // scanf("%d", &dest);
-    // printf("Voce saira da estacao %d e ira para a estacao %d.\n", orig, dest);
+    printf("Digite sua estacao de origem: ");
+    scanf("%d", &orig);
+    printf("Digite sua estacao de destino: ");
+    scanf("%d", &dest);
+    printf("Voce saira da estacao %d e ira para a estacao %d.\n\n", orig, dest);
 
-    calculaDistancia(gr, 1, 2);
-    calculaDistancia(gr, 2, 1);
-    calculaDistancia(gr, 3, 4);
-    calculaDistancia(gr, 4, 3);
+    Queue *fronteira;
+    fronteira = createQueue();
+    enqueue(gr, orig, orig, dest, fronteira, NULL);
+    Data* currentNode = dequeue(fronteira);
+
+    // while(!terminalPath(currentNode->station, dest)){
+    //     createNewPath(gr, fronteira, currentNode, orig, dest);
+    //     currentNode = dequeue(fronteira);
+    //     //what happens hereeeeee?
+    // }
+    if(terminalPath(currentNode->station, dest)) printf("eh estado final");
+    else printf("nn eh estado final, %d", currentNode->station);{
+        createNewPath(gr, fronteira, currentNode, orig, dest);
+    }
+
+
+    // while(!terminalState(currentState)){
+    //     createNewStates(fronteira, node); 
+    //     node = dequeue(fronteira); 
+    //     *currentState = node->state;
+    // }
     // astar(gr, orig, dest);
 }

@@ -1,4 +1,16 @@
+struct grafo{
+    int eh_ponderado;
+    int num_vertices;
+    int grau_max;
+    int** arestas;
+    char** linhas;
+    float** pesos;
+    int* grau;
+};
+
 typedef struct grafo Grafo;
+typedef struct node Data;
+
 
 Grafo *criaGrafo(int num_vertices, int grau_max, int eh_ponderado);
 
@@ -12,4 +24,8 @@ void imprimeGrafo(Grafo *gr);
 
 void imprimeDistancias(Grafo *gr);
 
-int calculaDistancia(Grafo *gr, int origem, int destino);
+int calculaHeuristica(Grafo *gr, int origem, int destino);
+
+void calculaCusto(Grafo *gr, int origem, int atual, Data* prevState);
+
+int custoTotal(Grafo *gr, int origem, int destino, int atual, Data* prevState);
