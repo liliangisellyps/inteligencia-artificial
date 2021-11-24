@@ -28,8 +28,9 @@ apropriado. É boa idéia verificar a existência de estados repetidos?
       Execute a travessia de 1 missionario e 1 canibal para a borda direita do rio.
 
 ### Para executar:
-      > gcc queue.c state.c main.c -o main
-      > ./main > main.txt
+      cd missionarios
+      gcc queue.c state.c main.c -o main
+      ./main > main.txt
       
 ### Algoritmo:
 
