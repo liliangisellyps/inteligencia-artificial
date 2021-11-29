@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "grafo.h"
 
 #define dbg if(0)
@@ -20,15 +21,9 @@ Grafo *criaGrafo(int num_vertices, int grau_max, int eh_ponderado){
         
         // matriz arestas
         gr->arestas = (int**)malloc(num_vertices*sizeof(int*));
-        
-        //cria matriz de visitados
-        gr->visited = (int**)malloc(num_vertices*sizeof(int*));
 
         for(i=1; i<num_vertices; i++)
             gr->arestas[i] = (int*)malloc(grau_max*sizeof(int));
-
-        for(i=1; i<num_vertices; i++)
-            gr->visited[i] = (int*)malloc(grau_max*sizeof(int));
 
         // matriz de distancias
         if(gr->eh_ponderado){
@@ -97,19 +92,27 @@ int printPath(int *path){
     printf("\n\n");
 }
 
+int copyPath(int *path, int *finalPath){
+    int i;
+    for(i=0; i<11; i++){
+        finalPath[i] = path[i];
+    }
+    return *finalPath;
+}
+
 int validPath(int *path, Grafo *gr){
     int i, current, next;
     for(i=0; i < 10; i++){
         current = path[i];
         next = path[i+1];
-        if(gr->distances[current][next-1] != 54) {
-            printf("%d and %d is connected by %.0f kms", current, next, gr->distances[current][next-1]);
-        }
-        else {
-            printf("%d and %d isnt connected", current, next);
+        if(gr->distances[current][next-1] == 54) {
+            // printf("%d and %d isnt connected", current, next);
             return 0;
         }
-        printf("\n\n");
+        // else {
+        //     printf("%d and %d is connected by %.0f kms", current, next, gr->distances[current][next-1]);
+        // }
+        // printf("\n\n");
     }
     return 1;
 }
@@ -123,4 +126,43 @@ float calculateTotalDistance(int *path, Grafo *gr){
         totalDistance += gr->distances[current][next-1];
     }
     return totalDistance;
+}
+
+int createNewPath(int* path, int orig){
+    path[0] = orig;
+    path[10] = orig;
+    int i, j=1;
+    if(orig !=  1){
+        for(i = 1; i <orig; i++){
+            path[j] = i;
+            j++;
+        }
+    }
+    if(orig != 10){
+        for(i = orig+1; i < 11; i++){
+            path[j] = i;
+            j++;
+        }
+    }
+    return *path;
+}
+
+int randnum(int min, int max) {
+    return ((rand() % (int)(((max) + 1) - (min))) + (min));
+}
+
+int createNextPath(int* path, int origem){
+    int x = randnum(1, 9);
+    int y = randnum(1, 9);
+    int aux = path[x];
+    path[x] = path[y];
+    path[y] = aux;
+    return *path;
+}
+
+void printValidPath(int distance, int *path){
+    printf("A melhor rota saindo da cidade %d eh: ", path[0]);
+    printPath(path);
+    printf("Voce ira percorrer um total de %d kms\n", distance);
+    printf("Tenha uma boa viagem!");
 }

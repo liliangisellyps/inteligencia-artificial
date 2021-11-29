@@ -3,7 +3,6 @@ struct grafo{
     int num_vertices;
     int grau_max;
     int** arestas;
-    int** visited;
     float** distances;
     int* grau;
 };
@@ -19,6 +18,16 @@ void printGraph(Grafo *gr);
 
 int printPath(int *path);
 
+int copyPath(int *path, int *finalPath);
+
 int validPath(int *path, Grafo *gr);
 
 float calculateTotalDistance(int *path, Grafo *gr);
+
+int createNewPath(int* path, int orig);
+
+int randnum(int min, int max);
+
+int createNextPath(int* path, int origem);
+
+void printValidPath(int distance, int *path);
