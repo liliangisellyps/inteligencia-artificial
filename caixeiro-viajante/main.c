@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "grafo.h"
+#include "path.h"
 #define dbg if(0)
 
 void main () {
@@ -35,9 +36,9 @@ void main () {
         if(i!=0) *path = createNextPath(path, orig);
         if(validPath(path, gr)) {
             dist = calculateTotalDistance(path, gr);
-            if(dist < finalDist){
+            if(dist <= finalDist){
                 *finalPath = copyPath(path, finalPath);
-                finalDist = calculateTotalDistance(finalPath, gr);
+                finalDist = dist;
             }
             // printf("Distance: %d and %d\n", dist, finalDist);
         }
@@ -45,6 +46,6 @@ void main () {
         // printPath(path);       
         // printf("\n\n");
     }
-    if(finalDist == 0) printf("Couldn't find any valid path!");
+    if(finalDist == 999999) printf("Couldn't find any valid path!");
     else printValidPath(finalDist, finalPath);
 }
