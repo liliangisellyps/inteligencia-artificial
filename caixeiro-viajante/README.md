@@ -22,7 +22,7 @@ inicial deve ser mantida, uma vez que o caixeiro mora lá ! A rota é fechada (e
 
 ### Para executar:
       cd caixeiro-viajante
-      gcc main.c grafo.c -o main
+      gcc main.c grafo.c path.c -o main
       ./main
 
 OBS: Ele irá pedir uma entradas, que corresponderá a sua cidade de origem (e portanto de destino final), que deve ser inserida no formato númerico (1, para representar a cidade 1; 2, para representar a estação 2 e assim por diante).
