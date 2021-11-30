@@ -28,6 +28,8 @@ int createNewPath(int* path, int orig);
 
 int randnum(int min, int max);
 
+int createAleatoryPath(int* path, int orig);
+
 int createNextPath(int* path, int origem);
 
 void printValidPath(int distance, int *path);

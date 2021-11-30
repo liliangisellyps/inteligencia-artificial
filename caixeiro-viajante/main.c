@@ -23,26 +23,23 @@ void main () {
     }
     dbg printGraph(gr);
 
-    printf("Qual a sua cidade de origem? Digite no formato 'Cidade 1', 'Cidade 2', etc.\n");
+    printf("Qual a sua cidade de origem? Digite no formato '1', '2', ..., '10'.\n");
     scanf("%d", &orig);
     
-    // int path[] = {3, 2, 4, 5, 9, 6, 7, 10, 8, 1, 3};
-    int path[11], finalPath[11], dist, finalDist=0;
-    *path = createNewPath(path, orig);
-    printPath(path);
-
-    dbg printf("Voce saira da cidade %d, visitara mais 9 cidades do interior de Pernambuco e, por fim, voltara para casa.\n\n", orig, dest);
     srand(time(NULL));
+    int path[11], finalPath[11], dist=0, finalDist=999999;
+    *path = createAleatoryPath(path, orig);
+    // printPath(path);
     
-    for(i=0; i<200000; i++){
+    for(i=0; i<500000; i++){
         if(i!=0) *path = createNextPath(path, orig);
         if(validPath(path, gr)) {
             dist = calculateTotalDistance(path, gr);
-            if(dist >= finalDist){
-                finalDist = dist;
+            if(dist < finalDist){
                 *finalPath = copyPath(path, finalPath);
+                finalDist = calculateTotalDistance(finalPath, gr);
             }
-            // printf("Distance: %d and %d\n", distAux, dist);
+            // printf("Distance: %d and %d\n", dist, finalDist);
         }
         // else printf("\n\nThe following path is invalid: ");
         // printPath(path);       

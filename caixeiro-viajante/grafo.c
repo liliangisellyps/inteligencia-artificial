@@ -86,8 +86,9 @@ void printGraph(Grafo *gr){
 
 int printPath(int *path){
     int i;
-    for(i=0; i<11; i++){
-        printf("%d ", path[i]);
+    printf("\n\nCidade %d ", path[0]);
+    for(i=1; i<11; i++){
+        printf("-> Cidade %d ", path[i]);
     }
     printf("\n\n");
 }
@@ -151,6 +152,24 @@ int randnum(int min, int max) {
     return ((rand() % (int)(((max) + 1) - (min))) + (min));
 }
 
+int createAleatoryPath(int* path, int orig){
+    path[0] = orig;
+    path[10] = orig;
+    int visited[11] = {0};
+    visited[orig] = 1;
+
+    int i, x;
+    for(i=1; i<10; i++){
+        x = randnum(1, 10);
+        while(visited[x] == 1) {
+            x = randnum(1, 10);
+        }
+        path[i] = x;
+        visited[x] = 1;
+    }
+    dbg printPath(path);
+    return *path;
+}
 int createNextPath(int* path, int origem){
     int x = randnum(1, 9);
     int y = randnum(1, 9);
@@ -161,8 +180,11 @@ int createNextPath(int* path, int origem){
 }
 
 void printValidPath(int distance, int *path){
-    printf("A melhor rota saindo da cidade %d eh: ", path[0]);
+    printf("--------------------------------------");
+    printf("\nA melhor rota saindo da cidade %d e retornando para ela eh: ", path[0]);
     printPath(path);
-    printf("Voce ira percorrer um total de %d kms\n", distance);
-    printf("Tenha uma boa viagem!");
+    printf("Voce ira percorrer um total de %d km e viajara por 10 cidades do interior de Pernambuco, incluindo a sua de origem.\n\n", distance);
+
+    printf("Tenha uma boa viagem!\n");
+    printf("--------------------------------------");
 }
