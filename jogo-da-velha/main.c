@@ -9,7 +9,7 @@ void main (){
     tictactoe = createBoard(NULL);
     printf("Ola! Esse eh seu tabuleiro de jogo da velha:\n\n");
     printBoard(tictactoe);
-    printf("Vamos dar inicio ao jogo? Digite seu simbolo de jogada: ('X' ou 'O'):\n");
+    printf("\nVamos dar inicio ao jogo? Digite seu simbolo de jogada: ('X' ou 'O'):\n");
     char opPlayer, opComputer;
     scanf(" %c", &opPlayer);
     getchar();
@@ -43,9 +43,10 @@ void main (){
         insertEntry(tictactoe, opPlayer, i-1, j-1);
         printf("\n\nApos a sua jogada (%c), o tabuleiro esta assim:\n", opPlayer);
         printBoard(tictactoe);
-    
+
         
         //computer time
+        if(isFinalGame(tictactoe, opPlayer)) break;
         printf("\n\nApos a jogada da IA (%c), o tabuleiro esta assim:\n", opComputer);
         tictactoe = alphaBeta(tictactoe, opPlayer, opComputer);
         printBoard(tictactoe);
