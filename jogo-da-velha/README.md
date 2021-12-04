@@ -19,7 +19,7 @@ Escolha um jogo para dois jogadores (ex.: jogo da velha, othelo, damas, xadrez, 
 
       O jogo empatou! :/
 
-      -----------------------------------------.
+      ----------------------------------
 
 
 ### Para executar:
